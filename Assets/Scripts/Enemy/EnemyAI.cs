@@ -20,6 +20,7 @@ public class EnemyAI : MonoBehaviour
     void Awake()
     {
         enemy = GetComponent<Enemy>();
+        animator = GetComponent<Animator>();
         navMeshAgent = GetComponent<NavMeshAgent>();
     }
 
@@ -31,8 +32,6 @@ public class EnemyAI : MonoBehaviour
     void Update()
     {
         ProvokeCheck();
-        distanceToTarget = Mathf.Infinity;
-
     }
 
     private float DistanceToTarget()
@@ -72,11 +71,14 @@ public class EnemyAI : MonoBehaviour
     private void AttackTarget()
     {
         FaceToTarget();
+        AttackState(true);
         Debug.Log("Got Attack");
     }
 
     private void ChaseTarget()
     {
+        MoveState();
+        AttackState(false);
         navMeshAgent.SetDestination(target.position);
     }
 
@@ -88,5 +90,20 @@ public class EnemyAI : MonoBehaviour
         //Create rotation then smoothly rotate the enemy
         Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * rotateSpeed);
+    }
+
+    public void IdleStae()
+    {
+        animator.SetTrigger("idle");
+    }
+
+    public void MoveState()
+    {
+        animator.SetTrigger("move");
+    }
+
+    public void AttackState(bool state)
+    {
+        animator.SetBool("attack", state);
     }
 }
