@@ -18,7 +18,7 @@ public class Weapon : MonoBehaviour
     [SerializeField] private ParticleSystem muzzleFlash;
     [SerializeField] private GameObject hitEffect;
     [SerializeField] private GameObject parent;
-    //[SerializeField] private Animator animator;
+    [SerializeField] private Animator animator;
 
     // const string for shoot animator
     const string SHOOT_STRING = "Shoot";
@@ -39,11 +39,12 @@ public class Weapon : MonoBehaviour
         muzzleFlash.Play();
 
         //Play animation at the beginning
-        //animator.Play(SHOOT_STRING, 0, 0f);
+        animator.Play(SHOOT_STRING, 0, 0f);
 
         RaycastHit hit; //Variable for storing the information of WHAT WE HIT
 
-        //Firing
+        //Shooting
+        //When hit the enemy, decrease the enemy's health
         if (Physics.Raycast(Camera.transform.position, Camera.transform.forward, out hit, range))
         {
             Debug.Log("Hit" + hit.transform.name);

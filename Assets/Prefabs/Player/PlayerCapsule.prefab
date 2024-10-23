@@ -40,6 +40,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 628737209009700940}
+  - component: {fileID: 4105285881387113128}
   m_Layer: 0
   m_Name: Active Weapon
   m_TagString: Untagged
@@ -63,6 +64,27 @@ Transform:
   - {fileID: 4292966902298684308}
   m_Father: {fileID: 7115034034179723200}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &4105285881387113128
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5844733507574480335}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ac3ccbddf8dd62c40b9a6f594bec40ca, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &7303848686560037174
 GameObject:
   m_ObjectHideFlags: 0
@@ -607,6 +629,14 @@ PrefabInstance:
       propertyPath: Camera
       value: 
       objectReference: {fileID: 7115034034179723207}
+    - target: {fileID: 8067371154996228558, guid: 4523c6da6573d0840831c075b7938918, type: 3}
+      propertyPath: parent
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8067371154996228558, guid: 4523c6da6573d0840831c075b7938918, type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 4105285881387113128}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
