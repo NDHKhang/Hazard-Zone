@@ -20,9 +20,6 @@ public class Weapon : MonoBehaviour
     [SerializeField] private GameObject parent;
     [SerializeField] private Animator animator;
 
-    // const string for shoot animator
-    const string SHOOT_STRING = "Shoot";
-
     void Awake()
     {
         _input = GetComponentInParent<StarterAssetsInputs>();
@@ -37,9 +34,6 @@ public class Weapon : MonoBehaviour
     {
         if (!_input.shoot) return;
         muzzleFlash.Play();
-
-        //Play animation at the beginning
-        animator.Play(SHOOT_STRING, 0, 0f);
 
         RaycastHit hit; //Variable for storing the information of WHAT WE HIT
 
@@ -58,6 +52,5 @@ public class Weapon : MonoBehaviour
             GameObject impact = Instantiate(hitEffect, hit.point, Quaternion.LookRotation(hit.normal), parent.transform);
             Destroy(impact, 1f);
         }
-        _input.shoot = false;
     }
 }

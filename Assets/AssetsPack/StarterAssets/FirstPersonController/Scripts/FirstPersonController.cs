@@ -64,6 +64,10 @@ namespace StarterAssets
 		private float _jumpTimeoutDelta;
 		private float _fallTimeoutDelta;
 
+		// -- personal custom --
+		// player animation
+		private Animator anim;
+
 	
 #if ENABLE_INPUT_SYSTEM
 		private PlayerInput _playerInput;
@@ -97,7 +101,8 @@ namespace StarterAssets
 
 		private void Start()
 		{
-			_controller = GetComponent<CharacterController>();
+            anim = GetComponentInChildren<Animator>();
+            _controller = GetComponent<CharacterController>();
 			_input = GetComponent<StarterAssetsInputs>();
 #if ENABLE_INPUT_SYSTEM
 			_playerInput = GetComponent<PlayerInput>();
@@ -115,7 +120,8 @@ namespace StarterAssets
 			JumpAndGravity();
 			GroundedCheck();
 			Move();
-		}
+			HandleAnimations();
+        }
 
 		private void LateUpdate()
 		{
@@ -274,5 +280,32 @@ namespace StarterAssets
 			// when selected, draw a gizmo in the position of, and matching radius of, the grounded collider
 			Gizmos.DrawSphere(new Vector3(transform.position.x, transform.position.y - GroundedOffset, transform.position.z), GroundedRadius);
 		}
+
+		// -- personal custom --
+		private void HandleAnimations()
+		{
+			if (_input.move == Vector2.zero)
+			{
+				anim.SetFloat("Speed", 0f, 0.2f, Time.deltaTime);
+			}
+			else if(!_input.sprint)
+			{
+				anim.SetFloat("Speed", 0.5f, 0.2f, Time.deltaTime);
+			}
+			else if(_input.sprint)
+			{
+				anim.SetFloat("Speed", 1f, 0.2f, Time.deltaTime);
+			}
+
+			if(_input.shoot)
+			{
+				anim.SetTrigger("Fire");
+                _input.shoot = false;
+            }
+			else if(!_input.shoot)
+			{
+				anim.ResetTrigger("Fire");
+			}
+        }
 	}
 }
