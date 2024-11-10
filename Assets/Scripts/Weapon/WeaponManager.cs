@@ -17,11 +17,11 @@ public class WeaponManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        SetWeaponAnim(WeaponType.Pistol);
+        SetWeaponAnim(WeaponType.Rifle);
     }
 
     private void SetWeaponAnim(WeaponType weaponType)
     {
-        anim.SetInteger("WeaponType", (int)WeaponType.Pistol);
+        anim.SetInteger("WeaponType", (int)weaponType);
     }
 }

@@ -58,7 +58,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1026058219791173971}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.5, y: 0.5, z: 0.49999994, w: 0.50000006}
+  m_LocalRotation: {x: 0.5, y: 0.5, z: 0.5, w: 0.5}
   m_LocalPosition: {x: 0.046600036, y: 0.076400064, z: 0.0009999913}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -78,7 +78,7 @@ Animator:
   m_GameObject: {fileID: 1026058219791173971}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 23be992bd5ac16a49a208660fe004870, type: 3}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 26ba9ca5204eb7f41ba9f1894078e07c, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -101,13 +101,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18df5394bcd182a47b4aa15e5affcd7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Camera: {fileID: 0}
-  weaponSO: {fileID: 11400000, guid: 0ab4da3e75e660a4ab5d3f9aab53fc49, type: 2}
-  range: 100
-  muzzleFlash: {fileID: 778763418117111064}
-  hitEffect: {fileID: 1000010355441670, guid: 62528d378b9b7204893f305ef523dcbf, type: 3}
   parent: {fileID: 0}
-  animator: {fileID: 0}
+  muzzleFlash: {fileID: 778763418117111064}
 --- !u!1 &1709882971367620139
 GameObject:
   m_ObjectHideFlags: 0

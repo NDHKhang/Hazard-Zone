@@ -47,7 +47,7 @@ public class ActiveWeapon : MonoBehaviour
     {
         if (_input.shoot)
         {
-            anim.CrossFade("Fire", 0.1f, -1, 0f);
+            anim.CrossFade("AK.Shoot", 0.1f, -1, 0f);
         }
     }
 }
