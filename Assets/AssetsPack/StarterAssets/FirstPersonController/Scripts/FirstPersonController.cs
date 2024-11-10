@@ -296,16 +296,6 @@ namespace StarterAssets
 			{
 				anim.SetFloat("Speed", 1f, 0.2f, Time.deltaTime);
 			}
-
-			if(_input.shoot)
-			{
-				anim.SetTrigger("Fire");
-                _input.shoot = false;
-            }
-			else if(!_input.shoot)
-			{
-				anim.ResetTrigger("Fire");
-			}
         }
 	}
 }

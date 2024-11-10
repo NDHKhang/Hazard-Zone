@@ -13,4 +13,8 @@ MonoBehaviour:
   m_Name: Pistol
   m_EditorClassIdentifier: 
   <damage>k__BackingField: 1
-  <fireRate>k__BackingField: 0.5
+  <fireRate>k__BackingField: 0.25
+  <range>k__BackingField: 100
+  <hitEffect>k__BackingField: {fileID: 1000010355441670, guid: 62528d378b9b7204893f305ef523dcbf, type: 3}
+  <isAutomatic>k__BackingField: 1
+  <weaponType>k__BackingField: 0
