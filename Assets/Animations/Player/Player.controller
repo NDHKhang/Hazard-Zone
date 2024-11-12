@@ -214,7 +214,7 @@ AnimatorController:
   - m_Name: WeaponType
     m_Type: 3
     m_DefaultFloat: 0
-    m_DefaultInt: 0
+    m_DefaultInt: 6
     m_DefaultBool: 0
     m_Controller: {fileID: 9100000}
   - m_Name: Speed
@@ -360,7 +360,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 6531290534452309879, guid: 01cbdd4597ead4f4688038a35dba1c00, type: 3}
+  m_Motion: {fileID: 3122732556601272752, guid: 01cbdd4597ead4f4688038a35dba1c00, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 

@@ -668,22 +668,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2509017279133269281, guid: df27b8cf1ae2c4c4d90a0cd443470964, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5381793221787373754, guid: df27b8cf1ae2c4c4d90a0cd443470964, type: 3}
+    - target: {fileID: 5835038357902482401, guid: df27b8cf1ae2c4c4d90a0cd443470964, type: 3}
       propertyPath: parent
       value: 
       objectReference: {fileID: 405143525}
-    - target: {fileID: 6029741035129441313, guid: df27b8cf1ae2c4c4d90a0cd443470964, type: 3}
+    - target: {fileID: 6957731076621675804, guid: df27b8cf1ae2c4c4d90a0cd443470964, type: 3}
       propertyPath: parent
       value: 
       objectReference: {fileID: 405143525}
-    - target: {fileID: 6968758485875647383, guid: df27b8cf1ae2c4c4d90a0cd443470964, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7303848686560037174, guid: df27b8cf1ae2c4c4d90a0cd443470964, type: 3}
       propertyPath: m_Name
       value: PlayerCapsule
@@ -728,10 +720,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 9166717761156658741, guid: df27b8cf1ae2c4c4d90a0cd443470964, type: 3}
-      propertyPath: weaponSO
-      value: 
-      objectReference: {fileID: 11400000, guid: 5d8d1900ff3f1e544a65eb728f7ebec2, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
