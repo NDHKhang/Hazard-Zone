@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9e22cac96318014580acff8c7caf212, type: 3}
   m_Name: Enemy1
   m_EditorClassIdentifier: 
-  <chaseRange>k__BackingField: 5
-  <damage>k__BackingField: 10
-  <health>k__BackingField: 10
+  chaseRange: 5
+  damage: 10
+  health: 10

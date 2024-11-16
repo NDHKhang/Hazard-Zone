@@ -12,9 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e4ac20ed8753a04ab00175a289c3b2a, type: 3}
   m_Name: AK
   m_EditorClassIdentifier: 
-  <damage>k__BackingField: 1
-  <fireRate>k__BackingField: 0.25
-  <range>k__BackingField: 100
-  <hitEffect>k__BackingField: {fileID: 1000010355441670, guid: 62528d378b9b7204893f305ef523dcbf, type: 3}
-  <isAutomatic>k__BackingField: 1
-  <weaponType>k__BackingField: 1
+  weaponName: AK
+  weaponPrefab: {fileID: 4819789535602415782, guid: 015099e5890e6dc499ad8bcda6e67a64, type: 3}
+  damage: 1
+  fireRate: 0.1
+  range: 100
+  hitEffect: {fileID: 1000010355441670, guid: 62528d378b9b7204893f305ef523dcbf, type: 3}
+  muzzleEffect: {fileID: 1000010254994808, guid: 9defeac88977c0d448aa4541073ee9e4, type: 3}
+  isAutomatic: 1
+  weaponType: 1

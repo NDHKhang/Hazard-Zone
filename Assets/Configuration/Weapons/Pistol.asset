@@ -12,9 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e4ac20ed8753a04ab00175a289c3b2a, type: 3}
   m_Name: Pistol
   m_EditorClassIdentifier: 
-  <damage>k__BackingField: 1
-  <fireRate>k__BackingField: 0.25
-  <range>k__BackingField: 100
-  <hitEffect>k__BackingField: {fileID: 1000010355441670, guid: 62528d378b9b7204893f305ef523dcbf, type: 3}
-  <isAutomatic>k__BackingField: 0
-  <weaponType>k__BackingField: 0
+  weaponName: M1911
+  weaponPrefab: {fileID: 1026058219791173971, guid: 855ba740bc247204ca317f5d37242c92, type: 3}
+  damage: 1
+  fireRate: 0.25
+  range: 100
+  hitEffect: {fileID: 1000010355441670, guid: 62528d378b9b7204893f305ef523dcbf, type: 3}
+  muzzleEffect: {fileID: 1000010254994808, guid: 9defeac88977c0d448aa4541073ee9e4, type: 3}
+  isAutomatic: 0
+  weaponType: 0
