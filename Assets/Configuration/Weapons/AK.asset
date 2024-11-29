@@ -16,8 +16,12 @@ MonoBehaviour:
   weaponPrefab: {fileID: 4819789535602415782, guid: 015099e5890e6dc499ad8bcda6e67a64, type: 3}
   damage: 1
   fireRate: 0.1
+  magazineSize: 25
+  magazineCount: 3
   range: 100
+  weaponIcon: {fileID: 21300000, guid: d82252907dfaa684d989ef6a11c3637f, type: 3}
   hitEffect: {fileID: 1000010355441670, guid: 62528d378b9b7204893f305ef523dcbf, type: 3}
   muzzleEffect: {fileID: 1000010254994808, guid: 9defeac88977c0d448aa4541073ee9e4, type: 3}
   isAutomatic: 1
-  weaponType: 1
+  weaponType: 0
+  weaponStyle: 0
