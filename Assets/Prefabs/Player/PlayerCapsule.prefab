@@ -46,8 +46,10 @@ GameObject:
   - component: {fileID: 8673307531087833332}
   - component: {fileID: 5740636470345853403}
   - component: {fileID: 3151196140320311340}
-  - component: {fileID: 5051827410820584557}
   - component: {fileID: 3369025671240234143}
+  - component: {fileID: 6161256019061178994}
+  - component: {fileID: 5972106344704689861}
+  - component: {fileID: 5051827410820584557}
   m_Layer: 8
   m_Name: PlayerCapsule
   m_TagString: Player
@@ -161,6 +163,7 @@ MonoBehaviour:
   jump: 0
   sprint: 0
   shoot: 0
+  weapon: 0
   analogMovement: 0
   cursorLocked: 1
   cursorInputForLook: 1
@@ -189,7 +192,51 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07c6116f0c5341b42bceaadbacb56600, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponHolderR: {fileID: 0}
+  currentWeaponObject: {fileID: 0}
+  currentWeaponSO: {fileID: 0}
+  muzzleEffectPosition: {fileID: 0}
+  isSwitching: 0
+--- !u!114 &3369025671240234143
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7303848686560037174}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3dd1ce1b7381ac24b866425f3ab661ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  vfxParent: {fileID: 0}
+  canShoot: 1
+--- !u!114 &6161256019061178994
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7303848686560037174}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb1eeb775dd8e944ca9c3cffa19b9f4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   weapons: []
+--- !u!114 &5972106344704689861
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7303848686560037174}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a6695770b6742f408051a154a9051f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponUI: {fileID: 0}
 --- !u!114 &5051827410820584557
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -288,20 +335,6 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!114 &3369025671240234143
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7303848686560037174}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3dd1ce1b7381ac24b866425f3ab661ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponSO: {fileID: 11400000, guid: 0ab4da3e75e660a4ab5d3f9aab53fc49, type: 2}
-  weaponHolderR: {fileID: 5379572261942266103}
 --- !u!1001 &2181243858996768802
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -506,11 +539,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ee8aedfff78eb04449959ed5d6038405, type: 3}
---- !u!4 &5379572261942266103 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4561134617364402861, guid: ee8aedfff78eb04449959ed5d6038405, type: 3}
-  m_PrefabInstance: {fileID: 8495042050903972442}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6687334791883794896 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2966284680711320458, guid: ee8aedfff78eb04449959ed5d6038405, type: 3}

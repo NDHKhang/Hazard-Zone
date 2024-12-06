@@ -707,7 +707,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   icon: {fileID: 1554482466}
   magazineSizeText: {fileID: 1005217332}
-  magazineCountText: {fileID: 2074159124}
+  totalAmmoText: {fileID: 2074159124}
 --- !u!1 &1005217330
 GameObject:
   m_ObjectHideFlags: 0
@@ -1349,7 +1349,7 @@ GameObject:
   - component: {fileID: 2074159125}
   - component: {fileID: 2074159124}
   m_Layer: 5
-  m_Name: MagazineCountText
+  m_Name: TotalAmmoText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1480,9 +1480,17 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 3151196140320311340, guid: df27b8cf1ae2c4c4d90a0cd443470964, type: 3}
+      propertyPath: primaryWeapon
+      value: 
+      objectReference: {fileID: 11400000, guid: 5d8d1900ff3f1e544a65eb728f7ebec2, type: 2}
+    - target: {fileID: 3151196140320311340, guid: df27b8cf1ae2c4c4d90a0cd443470964, type: 3}
       propertyPath: weaponHolderR
       value: 
       objectReference: {fileID: 1225388543}
+    - target: {fileID: 3151196140320311340, guid: df27b8cf1ae2c4c4d90a0cd443470964, type: 3}
+      propertyPath: secondaryWeapon
+      value: 
+      objectReference: {fileID: 11400000, guid: 0ab4da3e75e660a4ab5d3f9aab53fc49, type: 2}
     - target: {fileID: 3151196140320311340, guid: df27b8cf1ae2c4c4d90a0cd443470964, type: 3}
       propertyPath: weapons.Array.size
       value: 2
@@ -1509,12 +1517,12 @@ PrefabInstance:
       objectReference: {fileID: 882160500}
     - target: {fileID: 6161256019061178994, guid: df27b8cf1ae2c4c4d90a0cd443470964, type: 3}
       propertyPath: weapons.Array.size
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6161256019061178994, guid: df27b8cf1ae2c4c4d90a0cd443470964, type: 3}
       propertyPath: weapons.Array.data[0]
       value: 
-      objectReference: {fileID: 11400000, guid: 5d8d1900ff3f1e544a65eb728f7ebec2, type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 6161256019061178994, guid: df27b8cf1ae2c4c4d90a0cd443470964, type: 3}
       propertyPath: weapons.Array.data[1]
       value: 

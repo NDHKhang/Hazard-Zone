@@ -18,10 +18,14 @@ public class WeaponManager : MonoBehaviour
     private Inventory inventory;
     private PlayerHUD hud;
 
-    //
+    //Weapon
     [HideInInspector] public GameObject currentWeaponObject;
-    [HideInInspector] public WeaponSO currentWeaponSO;
+    [HideInInspector] public int currentWeaponIndex;
     [HideInInspector] public Transform muzzleEffectPosition;
+
+    //Default init weapon (AK & Pistol)
+    [SerializeField] private WeaponSO primaryWeapon;
+    [SerializeField] private WeaponSO secondaryWeapon;
 
     // Check if in switching sate
     public bool isSwitching = false;
@@ -58,37 +62,38 @@ public class WeaponManager : MonoBehaviour
             return;
         }
 
-        if (_input.weapon == 1 && (int)currentWeaponSO.weaponType != 0)
+        if (_input.weapon == 1 && (int)inventory.GetWeapon(currentWeaponIndex).weaponStyle != 0)
         {
             UnequipWeapon();
-            EquipWeapon(inventory.weapons[0]);
+            EquipWeapon(inventory.GetWeapon(0));
         }
-        else if (_input.weapon == 2 && (int)currentWeaponSO.weaponType != 1)
+        else if (_input.weapon == 2 && (int)inventory.GetWeapon(currentWeaponIndex).weaponStyle != 1)
         {
             UnequipWeapon();
-            EquipWeapon(inventory.weapons[1]);
+            EquipWeapon(inventory.GetWeapon(1));
         }
 
         _input.weapon = 0;
     }
 
-    private void EquipWeapon(WeaponSO weaponSO)
+    private void EquipWeapon(WeaponSO weapon)
     {
         //Set new weapon data
-        currentWeaponSO = weaponSO;
-        AnimationEventManager.Instance.SetWeaponType(weaponSO);
-        hud.UpdateWeaponUI(weaponSO);
+        currentWeaponIndex = (int)weapon.weaponStyle;
+        AnimationEventManager.Instance.SetWeaponType(weapon);
+        hud.UpdateWeaponUI(weapon);
     }
 
     private void UnequipWeapon()
     {
         isSwitching = true;
-        weaponShooting.canShoot = false;
         AnimationEventManager.Instance.SetTriggerUnequip();
     }
-
+        
     private void InitVariables()
     {
-        EquipWeapon(inventory.weapons[1]);
+        inventory.AddWeapon(primaryWeapon);
+        inventory.AddWeapon(secondaryWeapon);
+        EquipWeapon(inventory.weapons[(int)secondaryWeapon.weaponStyle]);
     }
 }

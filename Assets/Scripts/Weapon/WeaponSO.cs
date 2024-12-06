@@ -9,11 +9,19 @@ public class WeaponSO : ScriptableObject
     public GameObject weaponPrefab;
     public float damage;
     public float fireRate;
+    public int magazineSize;
+    public int totalAmmo;
     public float range;
+
+    public Sprite weaponIcon;
     public GameObject hitEffect;
     public GameObject muzzleEffect;
+
     public bool isAutomatic;
     public WeaponType weaponType;
+    public WeaponStyle weaponStyle;
 }
 
-public enum WeaponType { Pistol, Rifle };
+public enum WeaponType { Rifle, Pistol };
+
+public enum WeaponStyle { Primary, Secondary };

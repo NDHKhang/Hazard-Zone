@@ -13,6 +13,7 @@ namespace StarterAssets
 		public bool jump;
 		public bool sprint;
 		public bool shoot;
+		public bool reload;
 		public float weapon;
 
 		[Header("Movement Settings")]
@@ -51,7 +52,12 @@ namespace StarterAssets
             ShootInput(value.isPressed);
         }
 
-		public void OnSwitch1(InputValue value)
+        public void OnReload(InputValue value)
+        {
+            ReloadInput(value.isPressed);
+        }
+
+        public void OnSwitch1(InputValue value)
 		{
             SwitchInput(1);
 		}
@@ -86,6 +92,11 @@ namespace StarterAssets
         public void ShootInput(bool newShootState)
         {
             shoot = newShootState;
+        }
+
+        public void ReloadInput(bool newReloadState)
+        {
+            reload = newReloadState;
         }
 
         public void SwitchInput(float newWeapon)

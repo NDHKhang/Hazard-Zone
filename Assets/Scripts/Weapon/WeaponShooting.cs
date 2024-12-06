@@ -5,43 +5,75 @@ using UnityEngine;
 
 public class WeaponShooting : MonoBehaviour
 {
-    [SerializeField] private Transform weaponHolderR;
+    [Header("References")]
+    [Tooltip("Location storing spawn VFX")]
+    [SerializeField] private Transform vfxParent;
+
     private Animator anim;
 
+    //References
     private StarterAssetsInputs _input;
     private WeaponManager weaponManager;
+    private Inventory inventory;
 
+    // fire rate & check can shoot
     private float timeLastShot = 0f;
     public bool canShoot = true;
+
+    //Ammo
+    private int primaryCurrentAmmo;
+    private int primaryCurrentTotalAmmo;
+
+    private int secondaryCurrentAmmo;
+    private int secondaryCurrentTotalAmmo;
+
+    //Checking empty ammo
+    private bool isPrimaryMagazineEmpty;
+    private bool isSecondaryMagazineEmpty;
 
     void Awake()
     {
         _input = GetComponent<StarterAssetsInputs>();
-        weaponManager = GetComponent<WeaponManager>();
         anim = GetComponentInChildren<Animator>();
+        inventory =  GetComponent<Inventory>();
     }
 
+    private void Start()
+    {
+        weaponManager = WeaponManager.Instance;
+    }
     void Update()
     {
-        HandleShoot();
+        HandleInput();
+    }
+
+    private void HandleInput()
+    {
+        if (_input.shoot)
+        {
+            HandleShoot();
+        }
+
     }
 
     private void HandleShoot()
-    {
-        if (!canShoot) return;
+    {   
+        CheckCanShoot(weaponManager.currentWeaponIndex);
+        if (!canShoot)
+        {
+            //TODO: Add cant shoot sound
+            return;
+        }
+        if (weaponManager.isSwitching) return;
 
-        WeaponSO weaponSO = weaponManager.currentWeaponSO;
+        WeaponSO weaponSO = inventory.GetWeapon(weaponManager.currentWeaponIndex);
 
-        if (!weaponSO) return;
-
-        timeLastShot += Time.deltaTime;
-        if (!_input.shoot) return;
-
-        if (timeLastShot >= weaponSO.fireRate)
+        if (Time.time >= timeLastShot + weaponSO.fireRate)
         {
             Shoot(weaponSO);
-            timeLastShot = 0f;
+            timeLastShot = Time.time;
             ShootAnimation(weaponSO);
+            UseAmmo((int)weaponSO.weaponStyle, 1, 0);
         }
 
         // for pistol & not rifle gun type
@@ -67,7 +99,7 @@ public class WeaponShooting : MonoBehaviour
                 enemy.TakeDamage(weaponSO.damage);
             }
 
-            GameObject impact = Instantiate(weaponSO.hitEffect, hit.point, Quaternion.LookRotation(hit.normal));
+            GameObject impact = Instantiate(weaponSO.hitEffect, hit.point, Quaternion.LookRotation(hit.normal), vfxParent);
             Destroy(impact, 1f);
         }
 
@@ -75,11 +107,76 @@ public class WeaponShooting : MonoBehaviour
         Destroy(muzzle, 1f);
     }
 
-        private void ShootAnimation(WeaponSO weaponSO)
+    private void ShootAnimation(WeaponSO weaponSO)
     {
         if (_input.shoot)
         {
             anim.CrossFade(weaponSO.weaponName + ".Shoot", 0.1f, -1, 0f);
         }
+    }
+
+    public void InitAmmo(int slot, WeaponSO weapon)
+    {
+        if(slot == 0)
+        {
+            primaryCurrentAmmo = weapon.magazineSize;
+            primaryCurrentTotalAmmo = weapon.totalAmmo;
+        }
+
+        if(slot == 1)
+        {
+            secondaryCurrentAmmo = weapon.magazineSize;
+            secondaryCurrentTotalAmmo = weapon.totalAmmo;
+        }
+    }
+
+    private void UseAmmo(int slot, int ammoUsed, int totalAmmoUsed)
+    {
+        if(slot == 0)
+        {
+            //Check if empty ammo
+            if(primaryCurrentAmmo <= 0)
+            {
+                isPrimaryMagazineEmpty = true;
+                return;
+            }
+
+            primaryCurrentAmmo -= ammoUsed;
+            primaryCurrentTotalAmmo -= totalAmmoUsed;
+        }
+
+        if(slot == 1)
+        {
+            //Check if empty ammo
+            if (secondaryCurrentAmmo <= 0)
+            {
+                isSecondaryMagazineEmpty = true;
+                return;
+            }
+
+            secondaryCurrentAmmo -= ammoUsed;
+            secondaryCurrentTotalAmmo -= totalAmmoUsed;
+        }
+    }
+
+    private void CheckCanShoot(int slot)
+    {
+        if(slot == 0)
+        {
+            if (isPrimaryMagazineEmpty)
+                canShoot = false;
+            else
+                canShoot = true;
+        }
+        
+
+        if (slot == 1)
+        {
+            if (isSecondaryMagazineEmpty)
+                canShoot = false;
+            else
+                canShoot = true;
+        }
+
     }
 }
