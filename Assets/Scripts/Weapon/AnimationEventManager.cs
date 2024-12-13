@@ -34,6 +34,7 @@ public class AnimationEventManager : MonoBehaviour
     public void InstantiateWeapon()
     {
         weaponManager.currentWeaponObject = Instantiate(inventory.GetWeapon(weaponManager.currentWeaponIndex).weaponPrefab, weaponManager.weaponHolderR);
+        weaponManager.currentWeaponAnim = weaponManager.currentWeaponObject.GetComponent<Animator>();
         weaponManager.muzzleEffectPosition = weaponManager.currentWeaponObject.transform.GetChild(0);
     }
 
@@ -41,6 +42,16 @@ public class AnimationEventManager : MonoBehaviour
     public void CheckSwitchingDone()
     {
         weaponManager.isSwitching = false;
+    }
+
+    public void StartReloading()
+    {
+        weaponShooting.isReloading = true;
+    }
+
+    public void EndReloading()
+    {
+        weaponShooting.isReloading = false;
     }
 
     public void SetWeaponType(WeaponSO weaponSO)

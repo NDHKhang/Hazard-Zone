@@ -20,6 +20,7 @@ public class WeaponManager : MonoBehaviour
 
     //Weapon
     [HideInInspector] public GameObject currentWeaponObject;
+    [HideInInspector] public Animator currentWeaponAnim;
     [HideInInspector] public int currentWeaponIndex;
     [HideInInspector] public Transform muzzleEffectPosition;
 
@@ -28,7 +29,7 @@ public class WeaponManager : MonoBehaviour
     [SerializeField] private WeaponSO secondaryWeapon;
 
     // Check if in switching sate
-    public bool isSwitching = false;
+    public bool isSwitching = true;
 
     // Start is called before the first frame update
     void Awake()
@@ -81,6 +82,7 @@ public class WeaponManager : MonoBehaviour
         //Set new weapon data
         currentWeaponIndex = (int)weapon.weaponStyle;
         AnimationEventManager.Instance.SetWeaponType(weapon);
+
         hud.UpdateWeaponUI(weapon);
     }
 

@@ -305,7 +305,7 @@
                     "path": "<Keyboard>/r",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Gamepad",
+                    "groups": ";KeyboardMouse",
                     "action": "Reload",
                     "isComposite": false,
                     "isPartOfComposite": false

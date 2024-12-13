@@ -15,10 +15,12 @@ public class WeaponShooting : MonoBehaviour
     private StarterAssetsInputs _input;
     private WeaponManager weaponManager;
     private Inventory inventory;
+    private PlayerHUD playerHUD;
 
     // fire rate & check can shoot
     private float timeLastShot = 0f;
-    public bool canShoot = true;
+    public bool canShoot;
+    public bool isReloading = false;
 
     //Ammo
     private int primaryCurrentAmmo;
@@ -36,11 +38,13 @@ public class WeaponShooting : MonoBehaviour
         _input = GetComponent<StarterAssetsInputs>();
         anim = GetComponentInChildren<Animator>();
         inventory =  GetComponent<Inventory>();
+        playerHUD = GetComponent<PlayerHUD>();
     }
 
     private void Start()
     {
         weaponManager = WeaponManager.Instance;
+        canShoot = true;
     }
     void Update()
     {
@@ -54,16 +58,23 @@ public class WeaponShooting : MonoBehaviour
             HandleShoot();
         }
 
+        if (_input.reload)
+        {
+            HandleReload(weaponManager.currentWeaponIndex);
+        }
     }
 
     private void HandleShoot()
     {   
         CheckCanShoot(weaponManager.currentWeaponIndex);
-        if (!canShoot)
+
+        //if cannot shoot & is reloading -> dont shoot
+        if (!canShoot || isReloading)
         {
             //TODO: Add cant shoot sound
             return;
         }
+        //if player is switching weapon -> cant shoot
         if (weaponManager.isSwitching) return;
 
         WeaponSO weaponSO = inventory.GetWeapon(weaponManager.currentWeaponIndex);
@@ -80,6 +91,25 @@ public class WeaponShooting : MonoBehaviour
         if (!weaponSO.isAutomatic)
         {
             _input.shoot = false;
+        }
+    }
+
+    private void CheckCanShoot(int slot)
+    {
+        if (slot == 0)
+        {
+            if (isPrimaryMagazineEmpty)
+                canShoot = false;
+            else
+                canShoot = true;
+        }
+
+        if (slot == 1)
+        {
+            if (isSecondaryMagazineEmpty)
+                canShoot = false;
+            else
+                canShoot = true;
         }
     }
 
@@ -109,10 +139,81 @@ public class WeaponShooting : MonoBehaviour
 
     private void ShootAnimation(WeaponSO weaponSO)
     {
-        if (_input.shoot)
+        anim.CrossFade(weaponSO.weaponName + ".Shoot", 0.1f, -1, 0f);
+    }
+
+    private void HandleReload(int slot)
+    {
+        if (!isReloading && CheckCanReload(slot))
         {
-            anim.CrossFade(weaponSO.weaponName + ".Shoot", 0.1f, -1, 0f);
+            if (slot == 0)
+            {
+                Reload(slot, ref primaryCurrentAmmo, ref primaryCurrentTotalAmmo);
+                isPrimaryMagazineEmpty = false;
+                CheckCanShoot(slot);
+            }
+
+            if (slot == 1)
+            {
+                Reload(slot, ref secondaryCurrentAmmo, ref secondaryCurrentTotalAmmo);
+                isSecondaryMagazineEmpty = false;
+                CheckCanShoot(slot);
+            }
         }
+        _input.reload = false;
+    }
+
+    private bool CheckCanReload(int slot)
+    {
+        if (slot == 0)
+        {
+            if (primaryCurrentAmmo == inventory.GetWeapon(slot).magazineSize || primaryCurrentTotalAmmo <= 0)
+                return false;
+            else 
+                return true;
+        }
+        if (slot == 1)
+        {
+            if (secondaryCurrentAmmo == inventory.GetWeapon(slot).magazineSize || secondaryCurrentTotalAmmo <= 0)
+                return false;
+            else 
+                return true;
+        }
+
+        return false;
+    }
+
+    private void Reload(int slot, ref int currentAmmo, ref int totalAmmo)
+    {
+        //if ammo is still full -> return
+        if (currentAmmo == inventory.GetWeapon(slot).magazineSize)
+        {
+            return;
+        }
+
+        int ammoToReload = inventory.GetWeapon(slot).magazineSize - currentAmmo;
+
+        //Only reload if have enough ammo
+        if (ammoToReload <= totalAmmo)
+        {
+            //Add ammo to magazine, reduce ammo from total ammo
+            AddAmmo(slot, ammoToReload, 0);
+            UseAmmo(slot, 0, ammoToReload);
+        }
+        else //if total ammo is not enough, reload all remaning ammo
+        {
+            ammoToReload = totalAmmo;
+            AddAmmo(slot, ammoToReload, 0);
+            UseAmmo(slot, 0, ammoToReload);
+        }
+        WeaponSO weaponSO = inventory.GetWeapon(weaponManager.currentWeaponIndex);
+        ReloadAnimation(weaponSO);
+    }
+
+    private void ReloadAnimation(WeaponSO weaponSO)
+    {
+        anim.CrossFade(weaponSO.weaponName + ".Reload", 0.1f, -1, 0f);
+        weaponManager.currentWeaponAnim.SetTrigger("Reload");
     }
 
     public void InitAmmo(int slot, WeaponSO weapon)
@@ -134,49 +235,47 @@ public class WeaponShooting : MonoBehaviour
     {
         if(slot == 0)
         {
-            //Check if empty ammo
-            if(primaryCurrentAmmo <= 0)
-            {
-                isPrimaryMagazineEmpty = true;
-                return;
-            }
-
             primaryCurrentAmmo -= ammoUsed;
             primaryCurrentTotalAmmo -= totalAmmoUsed;
-        }
+            playerHUD.UpdateAmmoUI(primaryCurrentAmmo, primaryCurrentTotalAmmo);
 
-        if(slot == 1)
-        {
-            //Check if empty ammo
-            if (secondaryCurrentAmmo <= 0)
+            //Check if there's enough ammo before shooting
+            if (primaryCurrentAmmo <= 0)
             {
-                isSecondaryMagazineEmpty = true;
-                return;
+                isPrimaryMagazineEmpty = true;
+                CheckCanShoot(weaponManager.currentWeaponIndex);
             }
-
-            secondaryCurrentAmmo -= ammoUsed;
-            secondaryCurrentTotalAmmo -= totalAmmoUsed;
         }
-    }
-
-    private void CheckCanShoot(int slot)
-    {
-        if(slot == 0)
-        {
-            if (isPrimaryMagazineEmpty)
-                canShoot = false;
-            else
-                canShoot = true;
-        }
-        
 
         if (slot == 1)
         {
-            if (isSecondaryMagazineEmpty)
-                canShoot = false;
-            else
-                canShoot = true;
+            secondaryCurrentAmmo -= ammoUsed;
+            secondaryCurrentTotalAmmo -= totalAmmoUsed;
+            playerHUD.UpdateAmmoUI(secondaryCurrentAmmo, secondaryCurrentTotalAmmo);
+
+            //Check if there's enough ammo before shooting
+            if (secondaryCurrentAmmo <= 0)
+            {
+                isSecondaryMagazineEmpty = true;
+                CheckCanShoot(weaponManager.currentWeaponIndex);
+            }
+        }
+    }
+
+    private void AddAmmo(int slot, int ammoAdded, int totalAmmoAdded)
+    {
+        if (slot == 0)
+        {
+            primaryCurrentAmmo += ammoAdded;
+            primaryCurrentTotalAmmo += totalAmmoAdded;
+            playerHUD.UpdateAmmoUI(primaryCurrentAmmo, primaryCurrentTotalAmmo);
         }
 
+        if (slot == 1)
+        {
+            secondaryCurrentAmmo += ammoAdded;
+            secondaryCurrentTotalAmmo += totalAmmoAdded;
+            playerHUD.UpdateAmmoUI(secondaryCurrentAmmo, secondaryCurrentTotalAmmo);
+        }
     }
 }

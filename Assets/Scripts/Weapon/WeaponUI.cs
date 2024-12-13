@@ -16,4 +16,10 @@ public class WeaponUI : MonoBehaviour
         magazineSizeText.text = magazineSize.ToString();
         totalAmmoText.text = totalAmmo.ToString();
     }
+
+    public void UpdateAmmoUI(int currentAmmo, int totalAmmo)
+    {
+        magazineSizeText.text = currentAmmo.ToString();
+        totalAmmoText.text = totalAmmo.ToString();
+    }
 }
